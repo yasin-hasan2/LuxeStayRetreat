@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../hooks/useAuth";
 // import axios from "axios";
@@ -8,6 +8,8 @@ import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state || "/";
   const { signInWithGoogle, resetPassword, loading, setLoading, signIn } =
     useAuth();
 
@@ -56,7 +58,7 @@ const Login = () => {
     try {
       await signInWithGoogle();
 
-      navigate("/");
+      navigate(from);
       toast.success("SignUp Successful");
     } catch (error) {
       console.log(error);
