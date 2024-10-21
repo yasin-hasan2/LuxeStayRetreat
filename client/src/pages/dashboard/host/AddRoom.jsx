@@ -5,9 +5,16 @@ import AddRoomForm from "../../../components/form/AddRoomForm";
 import useAuth from "../../../hooks/useAuth";
 import { imageUpload } from "../../../api/utils";
 import { Helmet } from "react-helmet-async";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddRoom = () => {
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const [imagePreview, setImagePreview] = useState();
   const [imageText, setImageText] = useState("Upload Image");
@@ -24,9 +31,23 @@ const AddRoom = () => {
     setDates(item.selection);
   };
 
+  const { mutateAsync } = useMutation({
+    mutationFn: async (roomData) => {
+      const { data } = await axiosSecure.post("/room", roomData);
+      return data;
+    },
+    onSuccess: () => {
+      console.log("data saved successfully");
+      toast.success("Room Added Successfully");
+      navigate("/dashboard/my-listings");
+      setLoading(false);
+    },
+  });
+
   //Form handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const location = form.location.value;
     const category = form.category.value;
@@ -65,8 +86,13 @@ const AddRoom = () => {
       console.table(roomData);
 
       // post request to server
+
+      await mutateAsync(roomData);
     } catch (error) {
       console.log(error);
+      toast.error(`Room Added Error: ${error.massage}`);
+
+      setLoading(false);
     }
   };
 
@@ -91,6 +117,7 @@ const AddRoom = () => {
         imagePreview={imagePreview}
         handleImage={handleImage}
         imageText={imageText}
+        loading={loading}
       ></AddRoomForm>
     </div>
   );

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 // import { useState } from "react";
+import { ImSpinner9 } from "react-icons/im";
 import { categories } from "../Categories/CategoriesData";
 import { DateRange } from "react-date-range";
 
@@ -11,6 +12,7 @@ const AddRoomForm = ({
   imagePreview,
   imageText,
   handleImage,
+  loading,
 }) => {
   //   const [state, setState] = useState([
   //     {
@@ -192,10 +194,15 @@ const AddRoomForm = ({
         </div>
 
         <button
+          disabled={loading}
           type="submit"
           className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-rose-500"
         >
-          Save & Continue
+          {loading ? (
+            <ImSpinner9 className="animate-spin text-2xl m-auto text-yellow-300" />
+          ) : (
+            " Save & Continue"
+          )}
         </button>
       </form>
     </div>
