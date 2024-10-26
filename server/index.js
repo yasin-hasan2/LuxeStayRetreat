@@ -108,6 +108,14 @@ async function run() {
       res.send(result);
     });
 
+    // delete a room data
+    app.delete("/room/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await roomsCollection.deleteOne(query);
+      res.send(result);
+    });
+
     // Get a single room data from db using _id
     app.get("/rooms/:id", async (req, res) => {
       const id = req.params.id;
