@@ -50,6 +50,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const roomsCollection = client.db("stayvista").collection("rooms");
+    const usersCollection = client.db("stayvista").collection("users");
 
     // auth related api
     app.post("/jwt", async (req, res) => {
@@ -79,6 +80,39 @@ async function run() {
       } catch (err) {
         res.status(500).send(err);
       }
+    });
+
+    // save a user data in db
+
+    app.put("/user", async (req, res) => {
+      const user = req.body;
+      const query = { email: user?.email };
+
+      // check if user already exists in db
+      const isExist = await usersCollection.findOne(query);
+      if (isExist) {
+        return res.send(isExist);
+      }
+
+      // save user for the first time
+      const options = { upsert: true };
+
+      const updateDoc = {
+        $set: {
+          ...user,
+          timestamp: Date.now(),
+        },
+      };
+      const result = await usersCollection.updateOne(query, updateDoc, options);
+
+      res.send(result);
+    });
+
+    // get all users data from db
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
+
+      res.send(result);
     });
 
     // Get all rooms from db
