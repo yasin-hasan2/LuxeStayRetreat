@@ -91,7 +91,14 @@ async function run() {
       // check if user already exists in db
       const isExist = await usersCollection.findOne(query);
       if (isExist) {
-        return res.send(isExist);
+        if (user.status === "Requested") {
+          const result = await usersCollection.updateOne(query, {
+            $set: { status: user?.status },
+          });
+          return res.send(result);
+        } else {
+          return res.send(isExist);
+        }
       }
 
       // save user for the first time
