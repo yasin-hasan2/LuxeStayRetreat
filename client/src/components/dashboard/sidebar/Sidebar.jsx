@@ -9,11 +9,14 @@ import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { MdHomeWork } from "react-icons/md";
+import useRole from "../../../hooks/useRole";
+import MenuItem from "./Menu/MenuItem";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
   const [isActive, setActive] = useState(false);
-
+  const [role, isLoading] = useRole();
+  console.log(role, isLoading);
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive);
@@ -64,33 +67,22 @@ const Sidebar = () => {
             {/*  Menu Items */}
             <nav>
               {/* Statistics */}
-              <NavLink
-                to="/dashboard"
-                end
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                  }`
-                }
-              >
-                <BsGraphUp className="w-5 h-5" />
 
-                <span className="mx-4 font-medium">Statistics</span>
-              </NavLink>
+              <MenuItem
+                label={"Statistics"}
+                address={"/dashboard"}
+                icon={BsGraphUp}
+              ></MenuItem>
 
               {/* Add Room */}
-              <NavLink
-                to="add-room"
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                  }`
-                }
-              >
-                <BsFillHouseAddFill className="w-5 h-5" />
+              <MenuItem
+                label={"Add Room"}
+                address={"add-room"}
+                icon={BsFillHouseAddFill}
+              ></MenuItem>
 
-                <span className="mx-4 font-medium">Add Room</span>
-              </NavLink>
+              {/* note: here are two type of link I used one is using hook components and one is direct NavLinks , The professional way is using hook  */}
+
               {/* My Listing */}
               <NavLink
                 to="my-listings"
