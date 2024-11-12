@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
-import { BsFillHouseAddFill } from "react-icons/bs";
+// import { BsFillHouseAddFill } from "react-icons/bs";
 // import { GrUserAdmin } from "react-icons/gr";
 import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import { MdHomeWork } from "react-icons/md";
+// import { MdHomeWork } from "react-icons/md";
 import useRole from "../../../hooks/useRole";
 import MenuItem from "./Menu/MenuItem";
+import HostMenu from "./Menu/HostMenu";
+import GuestMenu from "./Menu/GuestMenu";
+import AdminMenu from "./Menu/AdminMenu";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
@@ -74,17 +77,25 @@ const Sidebar = () => {
                 icon={BsGraphUp}
               ></MenuItem>
 
+              {/* ===================================================== */}
+              {/* ## those navigation are for user roles. we can use by those code but as a professional work we need simplify our code that will happen in new code use a new page or components */}
+              {/* ===================================================== */}
+
+              {role === "guest" && <GuestMenu />}
+              {role === "host" && <HostMenu />}
+              {role === "admin" && <AdminMenu />}
+
               {/* Add Room */}
-              <MenuItem
+              {/* <MenuItem
                 label={"Add Room"}
                 address={"add-room"}
                 icon={BsFillHouseAddFill}
-              ></MenuItem>
+              ></MenuItem> */}
 
               {/* note: here are two type of link I used one is using hook components and one is direct NavLinks , The professional way is using hook  */}
 
               {/* My Listing */}
-              <NavLink
+              {/* <NavLink
                 to="my-listings"
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
@@ -95,7 +106,11 @@ const Sidebar = () => {
                 <MdHomeWork className="w-5 h-5" />
 
                 <span className="mx-4 font-medium">My Listings</span>
-              </NavLink>
+              </NavLink> */}
+
+              {/* ===================================================== */}
+              {/* ## those navigation are for user roles. we can use by those code but as a professional work we need simplify our code that will happen in new code use a new page or components */}
+              {/* ===================================================== */}
             </nav>
           </div>
         </div>
