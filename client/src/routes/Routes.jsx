@@ -12,6 +12,8 @@ import AddRoom from "../pages/dashboard/host/AddRoom";
 import MyListings from "../pages/dashboard/host/MyListings";
 import Profile from "../pages/dashboard/common/Profile";
 import ManageUsers from "../pages/dashboard/admin/ManageUsers";
+import SecureAdminRoute from "./SecureAdminRoute";
+import SecureHostRoute from "./SecureHostRoute";
 
 export const router = createBrowserRouter([
   {
@@ -37,27 +39,64 @@ export const router = createBrowserRouter([
   { path: "/signup", element: <SignUp /> },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivateRoute>
+        {" "}
+        <DashboardLayout />{" "}
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
-        element: <Statistics></Statistics>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <Statistics />{" "}
+          </PrivateRoute>
+        ),
       },
       {
         path: "add-room",
-        element: <AddRoom></AddRoom>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <SecureHostRoute>
+              {" "}
+              <AddRoom />{" "}
+            </SecureHostRoute>{" "}
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-listings",
-        element: <MyListings></MyListings>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <SecureHostRoute>
+              {" "}
+              <MyListings />{" "}
+            </SecureHostRoute>{" "}
+          </PrivateRoute>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers></ManageUsers>,
+        element: (
+          <PrivateRoute>
+            <SecureAdminRoute>
+              <ManageUsers />
+            </SecureAdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <Profile />{" "}
+          </PrivateRoute>
+        ),
       },
     ],
   },
