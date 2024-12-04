@@ -17,7 +17,8 @@ const MyListings = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["rooms"],
+    // queryKey: ["rooms"],
+    queryKey: ["my-listings", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/my-listings/${user?.email}`);
       return data;
