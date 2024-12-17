@@ -75,7 +75,7 @@ const Navbar = () => {
                   isOpen={isModalOpen}
                   closeModal={closeModal}
                   modalHandler={modalHandler}
-                ></HostModal>
+                />
 
                 {/* Dropdown btn */}
                 <div
