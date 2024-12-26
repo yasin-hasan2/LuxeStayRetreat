@@ -5,7 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
-
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // Add this line
 const port = process.env.PORT || 8000;
 
 // middleware
@@ -49,6 +49,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+    const db = client.db("stayvista");
     const roomsCollection = client.db("stayvista").collection("rooms");
     const usersCollection = client.db("stayvista").collection("users");
 
@@ -106,6 +107,28 @@ async function run() {
       } catch (err) {
         res.status(500).send(err);
       }
+    });
+
+    // create-payment-intent
+    app.post("/create-payment-intent", verifyToken, async (req, res) => {
+      const price = req.body.price;
+      const priceInCents = parseFloat(price) * 100;
+      if (!price || priceInCents < 50) {
+        return res.status(400).send({ message: "Invalid price" });
+      }
+      // generate client secret
+      const { client_secret } = await stripe.paymentIntents.create({
+        amount: priceInCents,
+        currency: "usd",
+        // In the latest version of the Stripe API, the `payment_method_types` parameter is required
+
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      });
+
+      // send client secret as response
+      res.send({ clientSecret: client_secret });
     });
 
     // save a user data in db
