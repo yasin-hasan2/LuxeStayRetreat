@@ -11,11 +11,14 @@ import { ImSpinner9 } from "react-icons/im";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
-const CheckoutForm = ({ closeModal, bookingInfo }) => {
+const CheckoutForm = ({ closeModal, bookingInfo, refetch }) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
+  const navigation = useNavigate();
   const { user } = useAuth();
   const [clientSecret, setClientSecret] = useState();
   const [cardError, setCardError] = useState("");
@@ -100,13 +103,28 @@ const CheckoutForm = ({ closeModal, bookingInfo }) => {
       // 1. create payment info object
       const paymentInfo = {
         ...bookingInfo,
+        roomId: bookingInfo._id,
         transactionId: paymentIntent.id,
         date: new Date(),
       };
+      delete paymentInfo._id;
       console.log(paymentInfo);
 
-      // 2. save payment info in booking collection (bd)
-      // 3. Change room status to booked in (bd)
+      try {
+        // 2. save payment info in booking collection (bd)
+        const { data } = await axiosSecure.post(`/booking`, paymentInfo);
+        console.log(data);
+
+        // 3. Change room status to booked in (bd)
+
+        // update UI
+        refetch();
+        closeModal();
+        toast.success("Booking successful!");
+        navigation("/dashboard/my-bookings");
+      } catch (error) {
+        console.log(error);
+      }
     }
     setProcessing(false);
     closeModal();
