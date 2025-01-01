@@ -248,15 +248,30 @@ async function run() {
 
       // change room availability status to booked
 
-      const roomId = bookingData.roomId;
-      const query = { _id: new ObjectId(roomId) };
-      const updateDoc = {
-        $set: { booked: true },
-      };
-      const updatedRoom = await roomsCollection.updateOne(query, updateDoc);
-      console.log(updatedRoom);
+      // const roomId = bookingData.roomId;
+      // const query = { _id: new ObjectId(roomId) };
+      // const updateDoc = {
+      //   $set: { booked: true },
+      // };
+      // const updatedRoom = await roomsCollection.updateOne(query, updateDoc);
+      // console.log(updatedRoom);
 
-      res.send({ result, updatedRoom });
+      // res.send({ result, updatedRoom });
+      res.send(result);
+    });
+
+    // update room status to booked
+    app.patch("/room/status/:id", async (req, res) => {
+      const id = req.params.id;
+      const status = req.body.status;
+      // change room availability status to booked
+      const query = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: { booked: status },
+      };
+      const result = await roomsCollection.updateOne(query, updateDoc);
+      console.log(result);
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection
