@@ -1,15 +1,15 @@
-# stayVista-starter-template
+# LuxeStayRetreat-starter-template
 
 - [Live Site]()
 
 ### Important Links:
 
-- [StayVista Part 1]()
+<!-- - [StayVista Part 1]()
 - [StayVista Part 2]()
 - [StayVista Part 3]()
 - [StayVista Part 4 (Complete)]()
 - [StayVista Resources]()
-- [Project Requirement Doc]()
+- [Project Requirement Doc]() -->
 
 ## Topics Covered in each session:
 
