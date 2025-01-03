@@ -303,6 +303,73 @@ async function run() {
       res.send(result);
     });
 
+    // Admin Statistics
+    app.get("/admin-stat", verifyToken, verifyAdmin, async (req, res) => {
+      // get all bookings details
+      const bookingsDetails = await bookingsCollection
+        .find(
+          {},
+          {
+            projection: {
+              roomId: 1,
+              guest: 1,
+              host: 1,
+              price: 1,
+              date: 1,
+            },
+          }
+        )
+        .toArray();
+
+      // get all users data
+      const totalUsers = await usersCollection.countDocuments();
+
+      // get all rooms data
+      const totalRooms = await roomsCollection.countDocuments();
+
+      // get total price data
+      const totalPrice = await bookingsDetails.reduce((sum, booking) => {
+        return sum + booking.price;
+      }, 0);
+      // const totalPrice = bookingsDetails.reduce(
+      //   (sum, booking) => sum + booking.price,
+      //   0
+      // );
+
+      // SalesLineChart Data //////////////
+      // const data = [
+      //   ["Day", "Sales"],
+      //   ["9", 1000],
+      //   ["10", 1170],
+      //   ["11", 660],
+      //   ["12", 1030],
+      // ];
+
+      const chartData = bookingsDetails.map((booking) => {
+        const day = new Date(booking.date).getDate();
+        const month = new Date(booking.date).getMonth() + 1;
+        const data = [`${day}/${month}`, booking?.price];
+        return data;
+      });
+
+      // chart data format header and date and sales //////////////
+      // (there are 2 ways to do this but we are using splice bcz it is more efficient)
+      chartData.unshift(["Day", "Sales"]);
+      // chartData.splice(0, 0, ["Day", "Sales"]);
+
+      // console.log(bookingsDetails);
+      // console.log(chartData);
+
+      // send response
+      res.send({
+        totalUsers,
+        totalRooms,
+        totalBookings: bookingsDetails.length,
+        totalPrice,
+        chartData,
+      });
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
