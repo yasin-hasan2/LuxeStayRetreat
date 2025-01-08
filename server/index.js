@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
+const nodemailer = require("nodemailer");
 const cookieParser = require("cookie-parser");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
@@ -18,6 +19,47 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
+
+// send email
+
+const sendEmail = async (emailAddress, emailData) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for port 465, false for other ports
+    auth: {
+      user: process.env.TRANSPORTER_EMAIL, // generated ethereal user
+      pass: process.env.TRANSPORTER_PASSWORD, // generated ethereal password
+    },
+  });
+
+  // verify connection configuration
+  transporter.verify(function (error, success) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Server is ready to take our messages");
+    }
+  });
+
+  const mailBody = {
+    from: `"LuxeStayRetreat 👻" <${process.env.TRANSPORTER_EMAIL}>`, // sender address
+    to: emailAddress, // list of receivers
+    subject: emailData.subject, // Subject line
+    // text: "Hello world?", // plain text body
+    html: emailData.message, // html body
+  };
+  const info = await transporter.sendMail(mailBody, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent :" + info.response);
+    }
+  });
+
+  // console.log("Message sent: %s", info.messageId);
+};
 
 // Verify Token Middleware
 const verifyToken = async (req, res, next) => {
@@ -162,6 +204,12 @@ async function run() {
       };
       const result = await usersCollection.updateOne(query, updateDoc, options);
 
+      // send email to New user
+      sendEmail(user?.email, {
+        subject: "Welcome to LuxeStayRetreat! 🎉",
+        message: `Hope you will, Welcome to LuxeStayRetreat . Your account has been successfully created. find your destination!`,
+      });
+
       res.send(result);
     });
 
@@ -245,6 +293,18 @@ async function run() {
       const bookingData = req.body;
       // save room booking info in db
       const result = await bookingsCollection.insertOne(bookingData);
+
+      // send email to guest
+      sendEmail(bookingData?.guest?.email, {
+        subject: "Booking Confirmation",
+        message: `You've successfully booked a room at LuxeStayRetreat. Transaction Id: ${bookingData?.transactionId}`,
+      });
+
+      // send email to host
+      sendEmail(bookingData?.host?.email, {
+        subject: "Your room has been booked",
+        message: `Get ready to welcome ${bookingData?.guest?.name}`,
+      });
 
       // change room availability status to booked
 
