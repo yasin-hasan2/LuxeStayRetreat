@@ -260,6 +260,18 @@ async function run() {
       res.send(result);
     });
 
+    // updated room data in db
+    app.put("/room/update/:id", verifyToken, verifyHost, async (req, res) => {
+      const id = req.params.id;
+      const roomData = req.body;
+      const query = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: roomData,
+      };
+      const result = await roomsCollection.updateOne(query, updateDoc);
+      res.send(result);
+    });
+
     // update room status to booked
     app.patch("/room/status/:id", async (req, res) => {
       const id = req.params.id;
