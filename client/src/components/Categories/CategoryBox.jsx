@@ -28,14 +28,16 @@ const CategoryBox = ({ label, icon: Icon }) => {
   gap-2
   p-3
   border-b-2
+  
   hover:text-neutral-800
+  hover:border-b-[#449698]
   transition
   cursor-pointer ${
-    category === label && "border-b-neutral-800 text-neutral-800"
+    category === label && "border-b-[#449698] text-neutral-800 "
   } `}
     >
       <Icon size={26} />
-      <div className="text-sm font-medium">{label}</div>
+      <div className="text-sm font-medium ">{label}</div>
     </div>
   );
 };

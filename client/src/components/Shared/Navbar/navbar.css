@@ -1,0 +1,17 @@
+.navbar {
+  background: transparent;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar.active {
+  background: rgba(216, 239, 239, 0.947);
+  box-shadow: 5px 5px 15px lightblue;
+}

@@ -17,7 +17,7 @@ const options = {
   title: "Sales Over Time",
   curveType: "function",
   legend: { position: "bottom" },
-  series: [{ color: "#F43F5E" }],
+  series: [{ color: "#54babe" }],
 };
 const SalesLineChart = ({ data }) => {
   const [loading, setLoading] = useState(true);
@@ -37,7 +37,7 @@ const SalesLineChart = ({ data }) => {
     <>
       {loading ? (
         <div className="h-96 flex items-center justify-center">
-          <ImSpinner9 className="animate-spin h-10 w-10 text-blue-500" />
+          <ImSpinner9 className="animate-spin h-10 w-10 text-[#54babe]" />
         </div>
       ) : data.length > 1 ? (
         <Chart
@@ -49,7 +49,7 @@ const SalesLineChart = ({ data }) => {
       ) : (
         <>
           <div className="h-96 flex items-center justify-center">
-            <ImSpinner9 className="animate-spin h-10 w-10 text-blue-500" />
+            <ImSpinner9 className="animate-spin h-10 w-10 text-[#54babe]" />
           </div>
           <p className="text-center  mb-5">
             Not enough data available for this section!

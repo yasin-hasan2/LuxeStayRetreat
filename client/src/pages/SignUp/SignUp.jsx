@@ -88,7 +88,7 @@ const SignUp = () => {
                 name="name"
                 id="name"
                 placeholder="Enter Your Name Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#449698] bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
               />
             </div>
@@ -114,7 +114,7 @@ const SignUp = () => {
                 id="email"
                 required
                 placeholder="Enter Your Email Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#449698] bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
               />
             </div>
@@ -131,7 +131,7 @@ const SignUp = () => {
                 id="password"
                 required
                 placeholder="*******"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#449698] bg-gray-200 text-gray-900"
               />
             </div>
           </div>
@@ -140,7 +140,7 @@ const SignUp = () => {
             <button
               disabled={loading}
               type="submit"
-              className="bg-rose-500 w-full rounded-md py-3 text-white"
+              className="bg-[#449698] w-full rounded-md py-3 text-white"
             >
               {loading ? (
                 <ImSpinner9 className="animate-spin text-2xl m-auto text-yellow-300" />

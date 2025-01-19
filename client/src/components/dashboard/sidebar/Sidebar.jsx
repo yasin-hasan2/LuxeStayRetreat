@@ -3,7 +3,7 @@ import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
 // import { BsFillHouseAddFill } from "react-icons/bs";
 // import { GrUserAdmin } from "react-icons/gr";
-import { AiOutlineBars } from "react-icons/ai";
+import { AiOutlineBars, AiOutlineClose } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
@@ -41,7 +41,7 @@ const Sidebar = () => {
           <div className="block cursor-pointer p-4 font-bold">
             <Link to="/">
               <h1 className="text-2xl font-bold">
-                Luxe<span className="text-red-600">Stay</span>Retreat
+                Luxe<span className="text-[#54babe]">Stay</span>Retreat
               </h1>
             </Link>
           </div>
@@ -49,9 +49,19 @@ const Sidebar = () => {
 
         <button
           onClick={handleToggle}
-          className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-200"
+          className={`mobile-menu-button p-4 focus:outline-none focus:bg-gray-200 ${
+            !isActive && "hidden"
+          }`}
         >
           <AiOutlineBars className="h-5 w-5" />
+        </button>
+        <button
+          onClick={handleToggle}
+          className={`mobile-menu-button p-4 focus:outline-none focus:bg-gray-200 transition-transform duration-500 hover:rotate-180 ${
+            isActive && "hidden "
+          }`}
+        >
+          <AiOutlineClose className="h-5 w-5" />
         </button>
       </div>
 
@@ -63,10 +73,10 @@ const Sidebar = () => {
       >
         <div>
           <div>
-            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto">
+            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-cyan-50 mx-auto">
               <Link to="/">
                 <h1 className="text-2xl font-bold">
-                  Luxe<span className="text-red-600">Stay</span>Retreat
+                  Luxe<span className="text-[#54babe]">Stay</span>Retreat
                 </h1>
               </Link>
             </div>

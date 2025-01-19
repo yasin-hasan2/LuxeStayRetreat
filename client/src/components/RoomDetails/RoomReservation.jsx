@@ -42,7 +42,7 @@ const RoomReservation = ({ room, refetch }) => {
       <div className="flex justify-center">
         <DateRange
           showDateDisplay={false}
-          rangeColors={["#F6657E"]}
+          rangeColors={["#54babe"]}
           // editableDateInputs={true}
           onChange={(item) => {
             console.log(item);
