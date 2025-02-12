@@ -11,7 +11,7 @@ const CategoryBox = ({ label, icon: Icon }) => {
   const handleClick = () => {
     let currentQuery = { category: label };
     const url = queryString.stringifyUrl({
-      url: "/",
+      url: "/rooms",
       query: currentQuery,
     });
     console.log(url);
