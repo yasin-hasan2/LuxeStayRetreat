@@ -11,7 +11,12 @@ const port = process.env.PORT || 8001;
 
 // middleware
 const corsOptions = {
-  origin: ["http://localhost:5173", "http://localhost:5174"],
+  origin: [
+    "http://localhost:5173", // For local development
+    "http://localhost:5174", // For local development
+    "https://luxe-stay-retreat.vercel.app", // Add your Vercel backend URL
+    "https://luxe-stay-retreat-1hod.vercel.app", // Add your Vercel frontend URL
+  ],
   credentials: true,
   optionSuccessStatus: 200,
 };
