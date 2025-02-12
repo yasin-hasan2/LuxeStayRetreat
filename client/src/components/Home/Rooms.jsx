@@ -32,7 +32,7 @@ const Rooms = () => {
   // is that old system for data fetching
   // useEffect(() => {
   //   setLoading(true);
-  //   fetch(`http://localhost:8000/rooms`)
+  //   fetch(`/rooms`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       setRooms(data);

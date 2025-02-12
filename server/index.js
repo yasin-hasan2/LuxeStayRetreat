@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // Add this line
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8001;
 
 // middleware
 const corsOptions = {
