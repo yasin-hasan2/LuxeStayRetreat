@@ -27,7 +27,7 @@ const Rooms = () => {
     },
   });
 
-  // console.log(rooms);
+  console.log(rooms);
 
   // is that old system for data fetching
   // useEffect(() => {
