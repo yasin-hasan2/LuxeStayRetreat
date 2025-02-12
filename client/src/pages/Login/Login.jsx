@@ -146,7 +146,7 @@ const Login = () => {
         <button
           disabled={loading}
           onClick={handleGoogleSignIn}
-          className=" disabled:cursor-not-allowed cursor-pointer flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded"
+          className=" hidden disabled:cursor-not-allowed cursor-pointer  justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded"
         >
           <FcGoogle size={32} />
 
