@@ -1,0 +1,30 @@
+/* Custom styles for contact form */
+.form-input-focus {
+  @apply ring-2 ring-primary border-transparent;
+}
+
+/* Custom animation for form submission */
+@keyframes formSubmit {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.form-submit-animation {
+  animation: formSubmit 0.3s ease-in-out;
+}
+
+/* Hover effect for contact info sections */
+.contact-info-hover {
+  transition: transform 0.2s ease-in-out;
+}
+
+.contact-info-hover:hover {
+  transform: translateY(-2px);
+}

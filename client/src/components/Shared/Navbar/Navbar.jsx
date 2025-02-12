@@ -75,6 +75,7 @@ const Navbar = () => {
                   Retreat
                 </h1>
               </Link>
+
               {/* Dropdown Menu */}
               <div className="relative">
                 <div className="flex flex-row items-center gap-3">

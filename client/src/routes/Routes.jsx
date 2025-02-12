@@ -16,6 +16,10 @@ import SecureAdminRoute from "./SecureAdminRoute";
 import SecureHostRoute from "./SecureHostRoute";
 import MyBookings from "../pages/dashboard/guest/MyBookings";
 import ManageBookings from "../pages/dashboard/host/ManageBookings";
+import About from "../pages/about/about";
+import Contact from "../pages/contract/Contract";
+import Blogs from "../pages/blogs/Blogs";
+import RoomsPage from "../pages/roomsPage/RoomsPage";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +31,23 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/rooms",
+        element: <RoomsPage />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs />,
+      },
+
       {
         path: "/room/:id",
         element: (
