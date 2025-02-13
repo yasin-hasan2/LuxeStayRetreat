@@ -16,6 +16,7 @@ const corsOptions = {
     "http://localhost:5174", // For local development
     "https://luxe-stay-retreat.vercel.app", // Add your Vercel backend URL
     "https://luxe-stay-retreat-1hod.vercel.app", // Add your Vercel frontend URL
+    "https://stay-vista-b6877.web.app", // Add your Firebase frontend URL
   ],
   credentials: true,
   optionSuccessStatus: 200,
